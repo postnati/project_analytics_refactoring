@@ -1,4 +1,4 @@
-class CreateProjects < ActiveRecord::Migration[5.1]
+class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
       t.references :dev_category, foreign_key: true

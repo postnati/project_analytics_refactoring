@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+ /*
+  * Base structure
+  */
+
+ /* Move down content because we have a fixed navbar that is 50px tall */
+ body {
+   padding-top: 50px;
+ }
+
+ table {
+   tr {
+     td.btn-margins {
+       .btn {
+         margin: 2px;
+       }
+     }
+   }
+ }

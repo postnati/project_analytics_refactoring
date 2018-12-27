@@ -1,4 +1,4 @@
-class Reports::ProductivityController < ApplicationController
+class ProductivityController < ApplicationController
   def index
     @resource_groups = ResourceGroups.all
     @locale = Locales.all
@@ -6,15 +6,36 @@ class Reports::ProductivityController < ApplicationController
 
   def show
     @time_groupings = ["weekly", "monthly", "quarterly"]
-    
+
     @time_grouping = params[:time_grouping] || "weekly"
     @resource_group = ResourceGroup.find_by_name(params[:resource_group_name] || "l3")
     @locale = Locale.find_by_name(params[:locale_name] || "Raleigh")
-    
+
     @headers = ["Week End Date","Project Effort","Total Effort","Utilization"]
     @data_rows = []
 
-    ProductitivyRowDataGather.get_rows(group_ended_at_offset, 
+    group_ended_at_offset = 1.week
+
+    if(@time_grouping == "monthly")
+      group_ended_at_offset = 1.month
+    elsif(@time_grouping == "quarterly")
+      group_ended_at_offset = 3.months
+    end
+
+    oldest_week_ended_at = EffortWeek.order(:ended_at => :asc).first.ended_at-1.week
+    current_group_ended_at = oldest_week_ended_at + group_ended_at_offset
+    groupings = {}
+    groupings[current_group_ended_at]  = {project_effort: 0.0, total_effort: 0.0}
+
+    EffortWeek.all.order(:ended_at => :asc).each do |week|
+      if(week.ended_at > current_group_ended_at)
+        current_group_ended_at += group_ended_at_offset
+        groupings[current_group_ended_at]  = {project_effort: 0.0, total_effort: 0.0}
+      end
+
+      groupings[current_group_ended_at][:project_effort] += EffortEntry.select(:effort).joins(:effort_week, :effort_bucket => :project, :team_member => [:resource_groups, :locale]).where(:effort_weeks => {ended_at: week.ended_at}, :resource_groups => {:id => @resource_group.id}, :locales => {:id => @locale.id}).where.not(:effort_buckets => {project: nil}).sum(:effort)
+      groupings[current_group_ended_at][:total_effort] += EffortEntry.select(:effort).joins(:effort_week, :effort_bucket => :effort_bucket_group, :team_member => [:resource_groups, :locale]).where(:effort_weeks => {ended_at: week.ended_at}, :resource_groups => {:id => @resource_group.id}, :locales => {:id => @locale.id}).where.not(:effort_bucket_groups => {name: ["Time Off"]}).sum(:effort)
+    end
 
     groupings.sort.each do |group_ended_at, values|
       project_effort = values[:project_effort]
@@ -37,10 +58,10 @@ class Reports::ProductivityController < ApplicationController
 
         render :json => {
           caption: "#{@time_grouping.camelcase} Productivity for [#{@resource_group.name}] in [#{@locale.name}]",
-          series: [ 
+          series: [
             {
               label: "Productivity",
-              data: @data_rows, 
+              data: @data_rows,
               minValue: 0,
               maxValue: 100
             }
@@ -48,7 +69,7 @@ class Reports::ProductivityController < ApplicationController
         }
       end
 
-      format.csv do 
+      format.csv do
         csv_output = CSV.generate({:col_sep => "\t"}) do |csv|
           csv << @headers
           @data_rows.each do |row|

@@ -1,4 +1,4 @@
-class CreateEffortEntries < ActiveRecord::Migration[5.1]
+class CreateEffortEntries < ActiveRecord::Migration
   def change
     create_table :effort_entries do |t|
       t.decimal :effort

@@ -1,0 +1,30 @@
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    /! The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    title Product Analytics System Service (PASS)
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          a.navbar-brand href="/"  Product Analytics System Service
+
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a href="/productivity"  Productivity Report
+    .container
+      - if flash
+        br
+      - flash.each do |key, value|
+        .alert.alert-dismissible.fade.in role="alert" class="alert-#{key}"
+          button.close type="button" data-dismiss="alert" aria-label="Close"
+            span aria-hidden="true" x
+          div= value
+
+      =yield

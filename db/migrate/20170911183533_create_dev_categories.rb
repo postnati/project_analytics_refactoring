@@ -1,4 +1,4 @@
-class CreateDevCategories < ActiveRecord::Migration[5.1]
+class CreateDevCategories < ActiveRecord::Migration
   def change
     create_table :dev_categories do |t|
       t.string :name

@@ -1,0 +1,22 @@
+javascript:
+  var chart_title = "#{@chart_title}"
+  var chart_data = JSON.parse("#{@chart_data}")
+  var y_axis_title = 'Percent Productivity'
+
+h1 Productivity Report
+
+#highchart
+
+= form_for :data_filter, url: "/reports/productivity" do |f|
+  fieldset.form-group
+    = f.label :time_grouping
+    = f.select :time_grouping, @time_groupings.map {|g| [g.camelcase,g]}, {:selected => @time_grouping}, class: 'form-control'
+  fieldset.form-group
+    = f.label :resource_group
+    = f.collection_select :resource_group_id, ResourceGroup.all, :id, :name, {:selected => @resource_group.id}, class: 'form-control'
+  fieldset.form-group
+    = f.label :locale
+    = f.collection_select :locale_id, Locale.all, :id, :name, {:selected => @locale.id}, class: 'form-control'
+
+  .btn-toolbar
+    = f.submit "Filter", class: 'btn btn-primary'

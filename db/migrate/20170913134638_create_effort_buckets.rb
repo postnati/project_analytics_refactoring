@@ -1,4 +1,4 @@
-class CreateEffortBuckets < ActiveRecord::Migration[5.1]
+class CreateEffortBuckets < ActiveRecord::Migration
   def change
     create_table :effort_buckets do |t|
       t.string :name

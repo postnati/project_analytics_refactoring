@@ -1,4 +1,4 @@
-class CreateEffortWeeks < ActiveRecord::Migration[5.1]
+class CreateEffortWeeks < ActiveRecord::Migration
   def change
     create_table :effort_weeks do |t|
       t.datetime :ended_at

@@ -1,4 +1,4 @@
-class CreateResourceAssignments < ActiveRecord::Migration[5.1]
+class CreateResourceAssignments < ActiveRecord::Migration
   def change
     create_table :resource_assignments do |t|
       t.references :team_member, foreign_key: true
