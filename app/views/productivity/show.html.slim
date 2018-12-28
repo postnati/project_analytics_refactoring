@@ -7,7 +7,7 @@ h1 Productivity Report
 
 #highchart
 
-= form_for :data_filter, url: "/reports/productivity" do |f|
+= form_for :data_filter, url: "/productivity" do |f|
   fieldset.form-group
     = f.label :time_grouping
     = f.select :time_grouping, @time_groupings.map {|g| [g.camelcase,g]}, {:selected => @time_grouping}, class: 'form-control'

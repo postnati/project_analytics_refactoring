@@ -30,11 +30,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use postgresql as the database for Active Record
-gem 'pg'
-
 # Slim markup
 gem 'slim-rails'
+
+# Slim Sass Framework
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # Javascript charting
 gem 'highcharts-rails'

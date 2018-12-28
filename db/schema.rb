@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170913134926) do
   add_index "effort_buckets", ["project_id"], name: "fk_rails_af38c2ea16", using: :btree
 
   create_table "effort_entries", force: :cascade do |t|
-    t.decimal  "effort",                     precision: 10
+    t.float    "effort",           limit: 24
     t.integer  "team_member_id",   limit: 4
     t.integer  "effort_bucket_id", limit: 4
     t.integer  "effort_week_id",   limit: 4

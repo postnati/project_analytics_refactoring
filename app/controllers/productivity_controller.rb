@@ -8,8 +8,8 @@ class ProductivityController < ApplicationController
     @time_groupings = ["weekly", "monthly", "quarterly"]
 
     @time_grouping = params[:time_grouping] || "weekly"
-    @resource_group = ResourceGroup.find_by_name(params[:resource_group_name] || "l3")
-    @locale = Locale.find_by_name(params[:locale_name] || "Raleigh")
+    @resource_group = ResourceGroup.find_by_name(params[:resource_group_name] || "dev")
+    @locale = Locale.find_by_name(params[:locale_name] || "Minneapolis")
 
     @headers = ["Week End Date","Project Effort","Total Effort","Utilization"]
     @data_rows = []
@@ -33,7 +33,7 @@ class ProductivityController < ApplicationController
         groupings[current_group_ended_at]  = {project_effort: 0.0, total_effort: 0.0}
       end
 
-      groupings[current_group_ended_at][:project_effort] += EffortEntry.select(:effort).joins(:effort_week, :effort_bucket => :project, :team_member => [:resource_groups, :locale]).where(:effort_weeks => {ended_at: week.ended_at}, :resource_groups => {:id => @resource_group.id}, :locales => {:id => @locale.id}).where.not(:effort_buckets => {project: nil}).sum(:effort)
+      groupings[current_group_ended_at][:project_effort] += EffortEntry.select(:effort).joins(:effort_week, :effort_bucket => :project, :team_member => [:resource_groups, :locale]).where(:effort_weeks => {ended_at: week.ended_at}, :resource_groups => {:id => @resource_group.id}, :locales => {:id => @locale.id}).where.not(:effort_buckets => {project_id: nil}).sum(:effort)
       groupings[current_group_ended_at][:total_effort] += EffortEntry.select(:effort).joins(:effort_week, :effort_bucket => :effort_bucket_group, :team_member => [:resource_groups, :locale]).where(:effort_weeks => {ended_at: week.ended_at}, :resource_groups => {:id => @resource_group.id}, :locales => {:id => @locale.id}).where.not(:effort_bucket_groups => {name: ["Time Off"]}).sum(:effort)
     end
 
