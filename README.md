@@ -6,7 +6,8 @@ Refactor ProductivityController.Show method and submit by Dec 28
 ## Summary of Submission
 Created new Rails 4.2.11 application with just the parts needed to make the ProductivityController functional.
 
-Original code is on the master branch. Refactored code is on the productivity_controller_refactor branch and with a pull request awaiting approval.
+Original code is on the master branch. Refactored code is on the productivity_controller_refactor branch and with a pull request
+awaiting approval.
 
 ## Refactoring Steps
 * Created System Tests for original code
@@ -37,7 +38,7 @@ Original code is on the master branch. Refactored code is on the productivity_co
 * HTML Template: Slim
 * CSS: Bootstrap, SCSS
 * Database: MySQL
-* Testing: rspec, selenium, capybara, factory_girl
+* Testing: rspec, selenium, capybara, factory_bot
 
 ### Project
 * Created new Rails 4.2.11 Project
