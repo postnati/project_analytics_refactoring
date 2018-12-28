@@ -18,7 +18,7 @@ describe 'ProductivityQueryService' do
       expect(productivity_data).to receive(:oldest_group_ended_at).and_return('oldest')
       expect(ProductivityQueryService).to receive(:add_week_project_effort).exactly(6).times
 
-      ProductivityQueryService.query_productivity('the_grouping')
+      ProductivityQueryService.query_productivity('the_grouping', 'the_resource', 'the_locale')
     end
   end
 
