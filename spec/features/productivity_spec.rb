@@ -4,11 +4,11 @@ require 'rails_helper'
 
 feature 'Productivity Report' do
   before do
-    build(:user)
+    seed_database
   end
 
-  scenario 'User views with defaults' do
+  scenario 'Defaults' do
     visit productivity_url
-    expect(page).to have_content 'Weekly Productivity for [dev] in [Minneapolis]'
+    expect(page).to have_content 'Productivity Report'
   end
 end
