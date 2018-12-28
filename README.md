@@ -37,7 +37,7 @@ Original code before refactor is on the master branch. Refactored code is on the
 * Spent 6-8 hours learning and setting up Atom including
   * Main Packages
     * Linter -> Ruby, SCSS, Rubocop
-    * Highlighting -> rspec
+    * Highlighting -> RSpec
     * Rubocop
     * Minimap for a sublime like tiny preview
     * PlatformIO IDE Terminal
@@ -52,7 +52,7 @@ Original code before refactor is on the master branch. Refactored code is on the
 * HTML Template: Slim
 * CSS: Bootstrap, SCSS
 * Database: MySQL
-* Testing: rspec, selenium, capybara, factory_girl
+* Testing: RSpec, Selenium, Capybara, Factory Girl
 
 ### Project
 * Created new Rails 4.2.11 Project
@@ -62,7 +62,7 @@ Original code before refactor is on the master branch. Refactored code is on the
   * Assets needed to support controller
 * Created simplified seed.rb to have some data to view when running the rails server
 * Simplified the routing structure to remove the concept of a parent Report Controller
-* Setup rspec with features using factory girl to generate database data
+* Setup RSpec with features using factory girl to generate database data
 * Refactored
 
 ### Todo
