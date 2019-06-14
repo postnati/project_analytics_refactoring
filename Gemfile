@@ -27,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# Use Puma as the app server
+gem 'puma'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -42,8 +45,9 @@ gem 'highcharts-rails'
 group :development, :test do
   gem 'byebug'
   gem 'capybara'
+  gem 'chromedriver-helper'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
